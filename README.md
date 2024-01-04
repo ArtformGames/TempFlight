@@ -15,16 +15,16 @@ README LANGUAGES [ [**English**](README.md) | [中文](README_CN.md)  ]
 
 # **TempFlight**
 
-> Slogan
+> Let's fly!
 
-Descriptions
+Allows players to temporarily fly.
 
 ## Features & Advantages
 
-## Screenshots
 
 ## Dependencies
 
+- **[Necessary]** Develop based on [ArtCore](https://github.com/ArtformGames/ArtCore) .
 - **[Recommend]** Placeholders based on [PlaceholderAPI](https://www.spigotmc.org/resources/6245/) .
 
 For development dependencies, please
