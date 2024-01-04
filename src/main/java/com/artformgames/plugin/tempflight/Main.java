@@ -5,6 +5,8 @@ import cc.carm.lib.mineconfiguration.bukkit.MineConfiguration;
 import com.artformgames.core.utils.GHUpdateChecker;
 import com.artformgames.plugin.tempflight.conf.PluginConfig;
 import com.artformgames.plugin.tempflight.conf.PluginMessages;
+import com.artformgames.plugin.tempflight.listener.TempFlyListener;
+import com.artformgames.plugin.tempflight.manager.FlightManager;
 import org.bstats.bukkit.Metrics;
 
 public class Main extends EasyPlugin {
@@ -16,10 +18,10 @@ public class Main extends EasyPlugin {
     }
 
     protected MineConfiguration configuration;
+    protected FlightManager flightManager;
 
     @Override
     protected void load() {
-
         log("Loading plugin configurations...");
         configuration = new MineConfiguration(this);
         configuration.initializeConfig(PluginConfig.class);
@@ -29,14 +31,18 @@ public class Main extends EasyPlugin {
     @Override
     protected boolean initialize() {
 
+        log("Initialize flight manager...");
+        this.flightManager = new FlightManager(this);
+
         log("Register listeners...");
+        registerListener(new TempFlyListener());
 
         log("Register commands...");
 
 
         if (PluginConfig.METRICS.getNotNull()) {
             log("Initializing bStats...");
-            new Metrics(this, 0);
+            new Metrics(this, 20647);
         }
 
         if (PluginConfig.CHECK_UPDATE.getNotNull()) {
@@ -53,6 +59,7 @@ public class Main extends EasyPlugin {
     protected void shutdown() {
 
         log("Shutting down...");
+        getFlightManager().shutdown();
 
     }
 
@@ -75,6 +82,10 @@ public class Main extends EasyPlugin {
 
     public static Main getInstance() {
         return instance;
+    }
+
+    public static FlightManager getFlightManager() {
+        return getInstance().flightManager;
     }
 
 }

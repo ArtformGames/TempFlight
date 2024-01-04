@@ -28,13 +28,19 @@ see  [Dependencies](https://github.com/ArtformGames/TempFlight/network/dependenc
 
 ## Commands
 
-The main command is `/TempFlight` or `/tsp`.
+The main command is `/TempFlight` or `/TempFly`.
 
 ```text
 
-# subcommand <force-arg> <optional-arg>
-@ Player command
-- Description
+# start <player> <time> [teleport-back]
+@ Admin command
+- Start a temporary flight for a player.
+- If "teleport-back" is true, the player will be teleported 
+-       back to the original location after the flight ends.
+
+# stop <player>
+@ Admin command
+- Stop a temporary flight for a player.
 
 ```
 
@@ -57,7 +63,7 @@ Will be generated on the first boot up.
 
 ## Statistics
 
-[![bStats](https://bstats.org/signatures/bukkit/TemplatePlugin.svg)](https://bstats.org/plugin/bukkit/TemplatePlugin/18946)
+[![bStats](https://bstats.org/signatures/bukkit/TempFlight.svg)](https://bstats.org/plugin/bukkit/TempFlight/20647)
 
 ## Open Source Licence
 

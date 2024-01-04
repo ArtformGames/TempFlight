@@ -15,3 +15,9 @@ depend:
 
 softdepend:
   - PlaceholderAPI
+
+
+permissions:
+  "tempflight.admin":
+    default: op
+    description: Permission to use /tempflight
