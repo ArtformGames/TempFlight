@@ -1,10 +1,10 @@
-package com.artformgames.plugin.template;
+package com.artformgames.plugin.tempflight;
 
 import cc.carm.lib.easyplugin.EasyPlugin;
 import cc.carm.lib.mineconfiguration.bukkit.MineConfiguration;
 import com.artformgames.core.utils.GHUpdateChecker;
-import com.artformgames.plugin.template.conf.PluginConfig;
-import com.artformgames.plugin.template.conf.PluginMessages;
+import com.artformgames.plugin.tempflight.conf.PluginConfig;
+import com.artformgames.plugin.tempflight.conf.PluginMessages;
 import org.bstats.bukkit.Metrics;
 
 public class Main extends EasyPlugin {

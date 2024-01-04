@@ -14,14 +14,14 @@
         <deps.core.version>1.0.0</deps.core.version>
     </properties>
     <groupId>com.artformgames</groupId>
-    <artifactId>TemplateSinglePlugin</artifactId>
+    <artifactId>tempflight</artifactId>
     <version>1.0.0</version>
 
-    <name>TemplateSinglePlugin</name>
+    <name>TempFlight</name>
     <description>
 
     </description>
-    <url>https://github.com/ArtformGames/TemplateSinglePlugin</url>
+    <url>https://github.com/ArtformGames/TempFlight</url>
 
     <developers>
         <developer>
@@ -50,20 +50,20 @@
 
     <ciManagement>
         <system>GitHub Actions</system>
-        <url>https://github.com/ArtformGames/TemplateSinglePlugin/actions/workflows/maven.yml</url>
+        <url>https://github.com/ArtformGames/TempFlight/actions/workflows/maven.yml</url>
     </ciManagement>
 
     <distributionManagement>
-        <downloadUrl>https://github.com/ArtformGames/TemplateSinglePlugin/releases</downloadUrl>
+        <downloadUrl>https://github.com/ArtformGames/TempFlight/releases</downloadUrl>
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/ArtformGames/TemplateSinglePlugin</url>
+            <url>https://maven.pkg.github.com/ArtformGames/TempFlight</url>
         </repository>
         <snapshotRepository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/ArtformGames/TemplateSinglePlugin</url>
+            <url>https://maven.pkg.github.com/ArtformGames/TempFlight</url>
         </snapshotRepository>
     </distributionManagement>
 

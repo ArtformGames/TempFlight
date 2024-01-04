@@ -1,4 +1,4 @@
-package com.artformgames.plugin.template.conf;
+package com.artformgames.plugin.tempflight.conf;
 
 import cc.carm.lib.configuration.core.ConfigurationRoot;
 import cc.carm.lib.configuration.core.annotation.HeaderComment;
