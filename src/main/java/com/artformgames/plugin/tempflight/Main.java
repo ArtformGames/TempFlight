@@ -3,10 +3,12 @@ package com.artformgames.plugin.tempflight;
 import cc.carm.lib.easyplugin.EasyPlugin;
 import cc.carm.lib.mineconfiguration.bukkit.MineConfiguration;
 import com.artformgames.core.utils.GHUpdateChecker;
+import com.artformgames.plugin.tempflight.command.TempFlightCommands;
 import com.artformgames.plugin.tempflight.conf.PluginConfig;
 import com.artformgames.plugin.tempflight.conf.PluginMessages;
 import com.artformgames.plugin.tempflight.listener.TempFlyListener;
 import com.artformgames.plugin.tempflight.manager.FlightManager;
+import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.bukkit.LiteCommandsBukkit;
 import dev.rollczi.litecommands.schematic.SchematicFormat;
 import org.bstats.bukkit.Metrics;
@@ -20,7 +22,9 @@ public class Main extends EasyPlugin {
     }
 
     protected MineConfiguration configuration;
+    protected LiteCommands<?> commands;
     protected FlightManager flightManager;
+
 
     @Override
     protected void load() {
@@ -40,6 +44,10 @@ public class Main extends EasyPlugin {
         registerListener(new TempFlyListener());
 
         log("Register commands...");
+        this.commands = LiteCommandsBukkit.builder()
+                .missingPermission((i, p, chain) -> PluginMessages.COMMANDS.NO_PERMISSION.send(i.sender()))
+                .commands(new TempFlightCommands())
+                .build();
 
 
         if (PluginConfig.METRICS.getNotNull()) {
