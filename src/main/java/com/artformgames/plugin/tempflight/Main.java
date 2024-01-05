@@ -7,6 +7,8 @@ import com.artformgames.plugin.tempflight.conf.PluginConfig;
 import com.artformgames.plugin.tempflight.conf.PluginMessages;
 import com.artformgames.plugin.tempflight.listener.TempFlyListener;
 import com.artformgames.plugin.tempflight.manager.FlightManager;
+import dev.rollczi.litecommands.bukkit.LiteCommandsBukkit;
+import dev.rollczi.litecommands.schematic.SchematicFormat;
 import org.bstats.bukkit.Metrics;
 
 public class Main extends EasyPlugin {

@@ -63,5 +63,40 @@ public interface PluginMessages extends Configuration {
             .defaults("&7Note: Teleport back to your current location after the flight is over!")
             .build();
 
+    interface COMMANDS extends Configuration {
+
+        ConfiguredMessageList<BaseComponent[]> NO_PERMISSION = list()
+                .defaults("&cYou don't have permission to do this.")
+                .build();
+
+        ConfiguredMessageList<BaseComponent[]> ALREADY_FLYING = list().defaults(
+                "The player is already flying, and you can't do it again."
+        ).params("player").build();
+
+        ConfiguredMessageList<BaseComponent[]> NOT_FLYING = list().defaults(
+                "The player is not flying, and you can't do it."
+        ).params("player").build();
+
+        ConfiguredMessageList<BaseComponent[]> FLY_DISABLED = list().defaults(
+                "&fThe player &e%(player)&f is not flying, and you can't do it."
+        ).params("player").build();
+
+
+        ConfiguredMessageList<BaseComponent[]> FLY_ENABLED = list().defaults(
+                "&fSuccessfully enabled temporary flight in %(time) seconds for the player &e%(player)&f."
+        ).params("player", "time").build();
+
+        ConfiguredMessageList<BaseComponent[]> COOLING = list().defaults(
+                "&fThe player %(player) need to wait for &e%(time) &fseconds before flying again."
+        ).params("player", "time").build();
+
+        // TIME USAGE
+        ConfiguredMessageList<BaseComponent[]> TIME_USAGE = list().defaults(
+                "&fThe time format is incorrect, the format is &e1d2h3m4s&f."
+        ).build();
+
+
+    }
+
 
 }
