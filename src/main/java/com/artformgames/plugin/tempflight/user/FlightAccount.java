@@ -38,7 +38,7 @@ public class FlightAccount extends AbstractUserHandler implements UserHandler {
 
     public long getRemainMillis() {
         if (this.endMillis == null) return 0;
-        else return (this.endMillis) - System.currentTimeMillis();
+        else return this.endMillis - System.currentTimeMillis();
     }
 
 

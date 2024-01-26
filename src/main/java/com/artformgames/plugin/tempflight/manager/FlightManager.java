@@ -22,22 +22,19 @@ public class FlightManager {
      * Used to record the last time the user enabled an ad-hoc flight
      * The UUID is the user's UUID, and the time is the timestamp when the user theoretically ended the flight
      */
-    protected final @NotNull Map<UUID, Long> lastTime = new HashMap<>();
+    protected final @NotNull Map<UUID, Long> cooldownTime = new HashMap<>();
     public static @NotNull BukkitRunnable repeatRunnable = new BukkitRunnable() {
         @Override
         public void run() {
-            Bukkit.getOnlinePlayers().forEach(Main.getFlightManager()::checkFlight);
+            FlightManager flightManager = Main.getFlightManager();
+            Bukkit.getOnlinePlayers().forEach(flightManager::checkFlight);
             Main.getFlightManager().purgeCooldownData();
         }
     };
 
 
     public FlightManager(Main main) {
-        ArtCore.getUserManager().registerHandler(
-                main, FlightAccount.class,
-                FlightAccount::new, FlightAccount::new,
-                (k, a) -> lastTime.remove(k.uuid())
-        );
+        ArtCore.getUserManager().registerHandler(main, FlightAccount.class, FlightAccount::new, FlightAccount::new);
         repeatRunnable.runTaskTimerAsynchronously(Main.getInstance(), 100L, 20L);
     }
 
@@ -54,7 +51,12 @@ public class FlightManager {
         if (account.isTempFlying()) return false;
 
         long end = account.start(duration, teleportBack ? player.getLocation() : null);
-        lastTime.put(player.getUniqueId(), end);
+        long cooldown = PluginConfig.COOLDOWN.entrySet().stream()
+                .filter(e -> player.hasPermission(e.getValue()))
+                .mapToLong(Map.Entry::getKey).min().orElse(-1);
+        if (cooldown > 0) {
+            cooldownTime.put(player.getUniqueId(), end + cooldown);
+        }
 
         player.setAllowFlight(true);
         player.setFlying(true);
@@ -65,8 +67,15 @@ public class FlightManager {
         FlightAccount account = getAccount(player);
         if (!account.isTempFlying()) return false;
 
-        account.reset();
         Optional.ofNullable(account.getStartLocation()).ifPresent(player::teleport);
+        account.reset();
+
+        long cooldown = PluginConfig.COOLDOWN.entrySet().stream()
+                .filter(e -> player.hasPermission(e.getValue()))
+                .mapToLong(Map.Entry::getKey).min().orElse(-1);
+        if (cooldown > 0) {
+            cooldownTime.put(player.getUniqueId(), System.currentTimeMillis() + cooldown);
+        }
 
         if (player.getAllowFlight()) {
             player.setFlying(false);
@@ -93,22 +102,15 @@ public class FlightManager {
     }
 
     public long getCooldownMillis(@NotNull Player player) {
-        Long time = lastTime.get(player.getUniqueId());
+        Long time = cooldownTime.get(player.getUniqueId());
         if (time == null) return 0;
 
-        long cooldown = PluginConfig.COOLDOWN.getNotNull();
-        if (cooldown <= 0) return 0;
-
-        return cooldown - (System.currentTimeMillis() - time);
+        return time - System.currentTimeMillis();
     }
 
     public void purgeCooldownData() {
-        long cooldown = PluginConfig.COOLDOWN.getNotNull();
-        if (cooldown > 0) {
-            lastTime.entrySet().removeIf(entry -> System.currentTimeMillis() - entry.getValue() > cooldown);
-        } else {
-            lastTime.clear();
-        }
+        long v = System.currentTimeMillis();
+        cooldownTime.entrySet().removeIf(entry -> v > entry.getValue());
     }
 
 }

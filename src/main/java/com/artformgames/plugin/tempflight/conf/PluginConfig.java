@@ -2,9 +2,9 @@ package com.artformgames.plugin.tempflight.conf;
 
 import cc.carm.lib.configuration.core.Configuration;
 import cc.carm.lib.configuration.core.annotation.HeaderComment;
-import cc.carm.lib.configuration.core.value.ConfigValue;
+import cc.carm.lib.configuration.core.value.impl.ConfigValueMap;
+import cc.carm.lib.configuration.core.value.type.ConfiguredMap;
 import cc.carm.lib.configuration.core.value.type.ConfiguredValue;
-import com.artformgames.core.utils.TimeStringUtils;
 
 public interface PluginConfig extends Configuration {
 
@@ -26,12 +26,16 @@ public interface PluginConfig extends Configuration {
     })
     ConfiguredValue<Boolean> CHECK_UPDATE = ConfiguredValue.of(Boolean.class, true);
 
-    @HeaderComment("The cooldown time for the player to use the flight command, format: 1d,2h,3m,4s")
-    ConfiguredValue<Long> COOLDOWN = ConfigValue.builder()
-            .asValue(Long.class).fromString()
-            .parseValue((v, d) -> TimeStringUtils.toMilliSecPlus(v))
-            .serializeValue(TimeStringUtils::toTimeString)
-            .defaults(60000L).build();
+    @HeaderComment({
+            "The cooldown time for the player to use the flight command of each permissions",
+            "format -> millisecond: permission"
+    })
+    ConfiguredMap<Long, String> COOLDOWN = ConfigValueMap.builderOf(Long.class, String.class)
+            .asLinkedMap().fromString().parseKey(Long::parseUnsignedLong).parseValue(Object::toString)
+            .defaults(m -> {
+                m.put(60000L, "tempflight.use");
+                m.put(30000L, "group.vip");
+            }).build();
 
 
 }
