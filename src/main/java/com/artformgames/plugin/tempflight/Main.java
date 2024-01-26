@@ -1,6 +1,7 @@
 package com.artformgames.plugin.tempflight;
 
 import cc.carm.lib.easyplugin.EasyPlugin;
+import cc.carm.lib.easyplugin.i18n.EasyPluginMessageProvider;
 import cc.carm.lib.mineconfiguration.bukkit.MineConfiguration;
 import com.artformgames.core.ArtCore;
 import com.artformgames.core.utils.GHUpdateChecker;
@@ -10,7 +11,6 @@ import com.artformgames.plugin.tempflight.conf.PluginMessages;
 import com.artformgames.plugin.tempflight.listener.TempFlyListener;
 import com.artformgames.plugin.tempflight.manager.FlightManager;
 import dev.rollczi.litecommands.LiteCommands;
-import dev.rollczi.litecommands.bukkit.LiteCommandsBukkit;
 import org.bstats.bukkit.Metrics;
 
 public class Main extends EasyPlugin {
@@ -18,6 +18,7 @@ public class Main extends EasyPlugin {
     private static Main instance;
 
     public Main() {
+        super(EasyPluginMessageProvider.EN_US);
         Main.instance = this;
     }
 
